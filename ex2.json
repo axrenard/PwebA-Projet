@@ -1,0 +1,41 @@
+{
+	"serie" : "654321",
+	"date":"12:20 17/02/2019",
+	"statut":"en service",
+	"detail":{
+		"etat":"ok",
+		"temperature":17,
+		"paiement":{
+			"piece":"normal",
+			"puce":"normal",
+			"sanscontact":"normal"
+		},
+		"erreurs":{
+			"erreur":"mauvaise piece",
+			"erreur":" lecture carte"
+		}
+	},
+	"contenu":{
+		"article":{
+			"ref":"bueno",
+			"quantite":15
+		},
+		"article":{
+			"ref":"country",
+			"quantite":5
+		},
+		"article":{
+			"ref":"bounty",
+			"quantite":9
+		},
+		"article":{
+			"ref":"kitkat",
+			"quantite":20
+		},
+		"article":{
+			"ref":"mars",
+			"quantite":7
+		}
+	},
+	"montant": 25
+}

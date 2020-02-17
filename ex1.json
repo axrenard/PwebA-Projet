@@ -1,0 +1,40 @@
+{
+	"serie" : "987654",
+	"date":"12:20 17/02/2020",
+	"statut":"en service",
+	"detail":{
+		"etat":"ok",
+		"temperature":20,
+		"paiement":{
+			"piece":"normal",
+			"puce":"normal",
+			"sanscontact":"normal"
+		},
+		"erreurs":{
+			"erreur":"lecture carte"
+		}
+	},
+	"contenu":{
+		"article":{
+			"ref":"ice tea",
+			"quantite":11
+		},
+		"article":{
+			"ref":"coca",
+			"quantite":12
+		},
+		"article":{
+			"ref":"coca zero",
+			"quantite":0
+		},
+		"article":{
+			"ref":"coca light",
+			"quantite":5
+		},
+		"article":{
+			"ref":"fanta",
+			"quantite":2
+		}
+	},
+	"montant": 142
+}

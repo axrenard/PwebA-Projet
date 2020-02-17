@@ -1,0 +1,65 @@
+XML:
+<rapport>
+	<serie> numéro de série <serie />
+	<date>  HH:MM JJ/MM/AAAA <date>
+	<!--- etat fonctionnement peut être en service ou hors service !-->
+	<statut> etat fonctionnement <statut />
+	<detail>
+		<!-- etat peut etre ok, attention,erreur, alarme !-->
+		<etat> etat <etat />
+		<!-- t compris entre -60 et 80 !-->
+		<temperature> t <temperature />
+		<paiement>
+			<!-- etat peut etre normal, plein, vide !-->
+			<piece> etat <piece/>
+			<!-- etat peut etre normal, erreur !-->
+			<puce> etat <puce />
+			<!-- etat peut etre normal, erreur !-->
+			<sanscontact> etat <sanscontact />
+		<paiement />
+		<!--liste des erreurs !-->
+		<erreurs> 
+			<!-- nb de balise erreur nécessaires!-->
+			<erreur> type <erreur />
+		<erreurs />
+	<detail />
+	<contenu> 
+		<!-- nb de balise article nécessaires !-->
+		<article>
+			<ref> reference article <ref />
+			<!-- nb entier positif ou nul !-->
+			<quantite> nb <quantite />
+		<article />
+	<contenu/<>
+	< montant> montant vente <montant />
+<rapport />
+
+Les valeurs sont les mêmes que pour le XML
+
+JSON:
+{
+	"serie" : "numero",
+	"date":"HH:MM JJ/MM/AAAA",
+	"statut":"etat fonctionnement",
+	"detail":{
+		"etat":"etat",
+		"temperature":t,
+		"paiement":{
+			"piece":"etat",
+			"puce":"etat",
+			"sanscontact":"etat"
+		},
+		"erreurs":{
+			"erreur":"type"
+		}
+	},
+	"contenu":{
+		"article":{
+			"ref":"reference",
+			"quantite":nb
+		}
+	}
+	"montant": montant
+}
+
+	

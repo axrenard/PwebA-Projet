@@ -1,0 +1,46 @@
+<rapport>
+	<serie> 123456 <serie />
+	<date>  12:50 17/02/2019 <date>
+	<statut> en service <statut />
+	<detail>
+		<etat> attention <etat />
+		<temperature> 12 <temperature />
+		<paiement>
+			<piece> normal <piece/>
+			<puce> normal <puce />
+			<sanscontact> erreur <sanscontact />
+		<paiement />
+		<erreurs> 
+			<erreur> sans contact refusé <erreur />
+			<erreur> coupure internet <erreur />
+			<erreur> sans contact refusé <erreur />
+		<erreurs />
+	<detail />
+	<contenu> 
+		<article>
+			<ref> buenos <ref />
+			<quantite> 12 <quantite />
+		<article />
+		<article>
+			<ref> buenos white <ref />
+			<quantite> 8 <quantite />
+		<article />
+		<article>
+			<ref> chips <ref />
+			<quantite> 16 <quantite />
+		<article />
+		<article>
+			<ref> twix <ref />
+			<quantite> 7 <quantite />
+		<article />
+		<article>
+			<ref> bounty <ref />
+			<quantite> 9 <quantite />
+		<article />
+		<article>
+			<ref> prince <ref />
+			<quantite> 2 <quantite />
+		<article />
+	<contenu/>
+	<montant> 135 <montant />
+<rapport />
