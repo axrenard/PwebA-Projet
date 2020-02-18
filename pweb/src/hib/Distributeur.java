@@ -16,15 +16,9 @@ public class Distributeur {
 	private Set<Rapport>rapports = new HashSet<>();
 
 	
-	public Distributeur(String s,String t,String a,String e, Long lo,Long la,Date i,String c) {
+	public Distributeur(String s,String t) {
 		serie = s;
 		type =t;
-		adresse = a;
-		emplacement = e;
-		longitude = lo;
-		latitude = la;
-		intervention = i;
-		commentaire = c;
 	}
 	
 	public String get_serie() {
