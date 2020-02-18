@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 f?vr. 2020 ? 10:30:10 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="hib.Article" table="ARTICLE">
+        <id name="id" type="java.lang.Integer" access="field">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="ref" type="java.lang.String" access="field">
+            <column name="REF" />
+        </property>
+        <property name="quantite" type="java.lang.Integer" access="field">
+            <column name="QUANTITE" />
+        </property>
+    </class>
+</hibernate-mapping>

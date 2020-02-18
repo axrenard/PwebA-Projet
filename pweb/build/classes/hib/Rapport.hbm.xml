@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 f?vr. 2020 ? 10:18:13 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="hib.Rapport" table="RAPPORT">
+        <id name="serie" type="java.lang.String" access="field">
+            <column name="SERIE" />
+            <generator class="assigned" />
+        </id>
+        <property name="date" type="java.util.Date" access="field">
+            <column name="DATE" />
+        </property>
+        <property name="statut" type="java.lang.String" access="field">
+            <column name="STATUT" />
+        </property>
+        <property name="etat" type="java.lang.String" access="field">
+            <column name="ETAT" />
+        </property>
+        <property name="temperature" type="java.lang.Long" access="field">
+            <column name="TEMPERATURE" />
+        </property>
+        <property name="piece" type="java.lang.String" access="field">
+            <column name="PIECE" />
+        </property>
+        <property name="puce" type="java.lang.String" access="field">
+            <column name="PUCE" />
+        </property>
+        <property name="sanscontact" type="java.lang.String" access="field">
+            <column name="SANSCONTACT" />
+        </property>
+        <set name="erreurs" table="RAPPORT" inverse="false" lazy="true" access="field">
+            <key>
+                <column name="SERIE" />
+            </key>
+            <element type="java.lang.String">
+                <column name="ERREURS" />
+            </element>
+        </set>
+        <set name="contenu" table="ARTICLE" inverse="false" lazy="true" access="field">
+            <key>
+                <column name="SERIE" />
+            </key>
+            <one-to-many class="hib.Article" />
+        </set>
+        <property name="montant" type="java.lang.Long" access="field">
+            <column name="MONTANT" />
+        </property>
+    </class>
+</hibernate-mapping>
