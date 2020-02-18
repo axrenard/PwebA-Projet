@@ -1,10 +1,12 @@
 package hib;
 
 public class Article {
+	private Integer id;
 	private String ref;
 	private Integer quantite;
 	
-	public Article(String r, Integer q) {
+	public Article(Integer i,String r, Integer q) {
+		id =i;
 		ref = r;
 		quantite = q;
 	}
