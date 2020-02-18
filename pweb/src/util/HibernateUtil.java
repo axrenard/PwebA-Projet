@@ -2,13 +2,14 @@ package util;
 
 import org.hibernate.*;
 import org.hibernate.cfg.*;
+import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
     static {	
 		// A SessionFactory is set up once for an application!
@@ -28,6 +29,17 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            // loads configuration and mappings
+            Configuration configuration = new Configuration().configure();
+            ServiceRegistry serviceRegistry
+                = new StandardServiceRegistryBuilder()
+                    .applySettings(configuration.getProperties()).build();
+
+            // builds a session factory from the service registry
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);           
+        }
+
         return sessionFactory;
     }
 

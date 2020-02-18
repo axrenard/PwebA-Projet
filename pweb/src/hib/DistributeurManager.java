@@ -13,14 +13,14 @@ public class DistributeurManager {
         DistributeurManager mgr = new DistributeurManager();
 
         if (args[0].equals("store")) {
-            mgr.createAndStoreDistributeur("My Event", new Date());
+            mgr.createAndStoreDistributeur(args[1], args[2]);
         }
         else if (args[0].equals("list")) {
-            List events = mgr.listEvents();
-            for (int i = 0; i < events.size(); i++) {
-                Event theEvent = (Event) events.get(i);
-                System.out.println("Event: " + theEvent.getTitle() +
-                                   " Time: " + theEvent.getDate());
+            List distribs = mgr.listDistributeur();
+            for (int i = 0; i < distribs.size(); i++) {
+                Distributeur thedistrib = (Distributeur) distribs.get(i);
+                System.out.println("Event: " + thedistrib.get_serie() +
+                                   "Type:"+thedistrib.get_type());
             }
         }
 
@@ -28,20 +28,18 @@ public class DistributeurManager {
         HibernateUtil.getSessionFactory().close();
     }
 
-    private Long createAndStoreDistributeur(String title, Date theDate) {
+    private String createAndStoreDistributeur(String serie, String type) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
-        Event theEvent = new Event();
-        theEvent.setTitle(title);
-        theEvent.setDate(theDate);
+        Distributeur thedistrib = new Distributeur(serie,type);
 
-        session.save(theEvent);
+        session.save(thedistrib);
 
         session.getTransaction().commit();
 
-        return theEvent.getId();
+        return thedistrib.get_serie();
     }
 
 
@@ -50,7 +48,7 @@ public class DistributeurManager {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
-        List result = session.createQuery("from Event").list();
+        List result = session.createQuery("from Distributeur").list();
 
         session.getTransaction().commit();
 
