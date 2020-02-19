@@ -15,6 +15,9 @@ public class Distributeur {
 	private String commentaire;
 	private Set<Rapport>rapports = new HashSet<>();
 
+	public Distributeur() {
+		
+	}
 	
 	public Distributeur(String s,String t) {
 		serie = s;
