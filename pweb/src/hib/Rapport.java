@@ -31,6 +31,10 @@ public class Rapport {
 		montant = m;
 	}
 	
+	public Rapport() {
+		
+	}
+	
 	public String get_serie() {
 		return serie;
 	}

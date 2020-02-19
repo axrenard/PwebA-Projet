@@ -11,6 +11,10 @@ public class Article {
 		quantite = q;
 	}
 	
+	public Article() {
+		
+	}
+	
 	public String get_ref() {
 		return ref;
 	}

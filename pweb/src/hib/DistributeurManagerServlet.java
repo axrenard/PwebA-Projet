@@ -4,8 +4,9 @@ import util.HibernateUtil;
 
 
 import javax.servlet.http.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 
 import java.io.*;
 import java.util.*;
@@ -13,9 +14,6 @@ import java.text.SimpleDateFormat;
 
 
 public class DistributeurManagerServlet extends HttpServlet {
-
-    private final SimpleDateFormat dateFormatter =
-                            new SimpleDateFormat("dd.MM.yyyy");
 
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -26,9 +24,7 @@ public class DistributeurManagerServlet extends HttpServlet {
             HibernateUtil.getSessionFactory()
                     .getCurrentSession().beginTransaction();
 
-            // Write HTML header
-            PrintWriter out = response.getWriter();
-            out.println("<html><head><title>Distributeur Manager</title></head><body>");
+            request.setAttribute("msg", "");
 
             // Handle actions
             if ( "store".equals(request.getParameter("action")) ) {
@@ -37,21 +33,30 @@ public class DistributeurManagerServlet extends HttpServlet {
                 String type = request.getParameter("type");
 
                 if ( "".equals(serie) || "".equals(type) ) {
-                    out.println("<b><i>Please enter serie number and type.</i></b>");
+                	request.setAttribute("msg", "Please enter serie number and type.");
                 } else {
+                	request.setAttribute("msg", "Added distributeur.");
                     createAndStoreDistributeur(serie, type);
-                    out.println("<b><i>Added distributeur.</i></b>");
                 }
             }
+            
+            if ( "delete".equals(request.getParameter("action")) ) {
 
-            // Print page
-            printEventForm(out);
-            listEvents(out);
+                String serie = request.getParameter("serie");
 
-            // Write HTML footer
-            out.println("</body></html>");
-            out.flush();
-            out.close();
+                if ( "".equals(serie) ) {
+                	request.setAttribute("msg", "Please enter serie number");
+                } else {
+                	request.setAttribute("msg", "Deleted distributeur.");
+                    DeleteDistributeur(serie);
+                }
+            }
+            request.setAttribute("liste",listEvents());
+            
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatcher = context.getRequestDispatcher("/gestion.jsp");
+            dispatcher.forward(request, response);
+
 
             // End unit of work
             HibernateUtil.getSessionFactory()
@@ -64,34 +69,11 @@ public class DistributeurManagerServlet extends HttpServlet {
         }
     }
 
-    private void printEventForm(PrintWriter out) {
-        out.println("<h2>Add new event:</h2>");
-        out.println("<form>");
-        out.println("N serie: <input name='serie' length='50'/><br/>");
-        out.println("Type: <input name='type' length='20'/><br/>");
-        out.println("<input type='submit' name='action' value='store'/>");
-        out.println("</form>");
-    }
 
-    private void listEvents(PrintWriter out) {
-        List result = HibernateUtil.getSessionFactory()
+    private List<Distributeur> listEvents() {
+        List<Distributeur> result = HibernateUtil.getSessionFactory()
                         .getCurrentSession().createCriteria(Distributeur.class).list();
-        if (result.size() > 0) {
-            out.println("<h2>Events in database:</h2>");
-            out.println("<table border='1'>");
-            out.println("<tr>");
-            out.println("<th>Event title</th>");
-            out.println("<th>Event date</th>");
-            out.println("</tr>");
-            for (Iterator it = result.iterator(); it.hasNext();) {
-                Distributeur dst = (Distributeur) it.next();
-                out.println("<tr>");
-                out.println("<td>" + dst.get_serie() + "</td>");
-                out.println("<td>" + dst.get_type()+ "</td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
-        }
+        return result;
     }
 
     protected void createAndStoreDistributeur(String serie, String type) {
@@ -99,6 +81,14 @@ public class DistributeurManagerServlet extends HttpServlet {
 
         HibernateUtil.getSessionFactory()
                         .getCurrentSession().save(theEvent);
+    }
+    
+    protected void DeleteDistributeur(String serie) {
+        HibernateUtil.getSessionFactory()
+                .getCurrentSession().createQuery("delete from Distributeur where serie = :serie")
+                .setParameter("serie", serie)
+                .executeUpdate();;
+
     }
 
 }
