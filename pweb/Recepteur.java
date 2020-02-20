@@ -40,23 +40,27 @@ public class Recepteur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String rep = getMsgType(request.getServletContext().getAttribut("rapport"));
-		if(rep.equals("XML"))
+		String rep = getMsgType(request.getServletContext().getAttribute("rapport"));
+		boolean a = true;
+		try
 		{
 			final DocumentBuilder builder = DocumentBuilderFactory.newDocumentBuilder();		
-			 final Document document = builder.parse(request.getServletContext().getAttribut("rapport"));
+			final Document document = builder.parse(request.getServletContext().getAttribut("rapport"));
 			final Element reception = document.getDocumentElement();
-			/*stokage reception*/
+			a = false;
+		}
+		catch (IOException e)
+		{
+			JSONObject reception = new JSONObject(request.getServletContext().getAttribut("rapport")); 
+		}
+		if(a)
+		{
+			/*stokage xml*/
 		}
 		else
 		{
-			if(rep.equals("JSON"))
-			{
-				JSONObject reception = new JSONObject(request.getServletContext().getAttribut("rapport"));
-				/*stockage reception*/
-			}
+			/*stokage json*/
 		}
-		
 		
 		response.setStatus(HttpServletResponse.SC_OK);
 		this.getServletContext().getRequestDispatcher("").forward(request, response);
