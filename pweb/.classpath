@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jakarta.jws-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/string-1.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jackson-core-2.7.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/object-mapper-api-0.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
