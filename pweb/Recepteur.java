@@ -56,7 +56,7 @@ public class Recepteur extends HttpServlet {
 		}
 		
 		
-		response.status(HttpServletResponse.SC_OK);
+		response.setStatus(HttpServletResponse.SC_OK);
 		this.getServletContext().getRequestDispatcher("").forward(request, response);
 	}
 

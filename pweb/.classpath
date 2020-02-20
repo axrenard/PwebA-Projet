@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jar_files (5)/org.apache.karaf.specs.locator-4.3.0.RC1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jar_files (5)/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jakarta.jws-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/string-1.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
