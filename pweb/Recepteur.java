@@ -16,6 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import javax.jws.WebService;
+import com.fasterxml.jackson.*;
 
 /**
  * Servlet implementation class recepteur
@@ -38,11 +39,11 @@ public class Recepteur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String rep = getMsgType(request);
+		String rep = getMsgType(request.getServletContext().getAttribut("rapport"));
 		if(rep.equals("XML"))
 		{
 			final DocumentBuilder builder = DocumentBuilderFactory.newDocumentBuilder();		
-			 final Document document = builder.parse(request);
+			 final Document document = builder.parse(request.getServletContext().getAttribut("rapport"));
 			final Element reception = document.getDocumentElement();
 			/*stokage reception*/
 		}
@@ -50,7 +51,7 @@ public class Recepteur extends HttpServlet {
 		{
 			if(rep.equals("JSON"))
 			{
-				JSONObject reception = new JSONObject(request);
+				JSONObject reception = new JSONObject(request.getServletContext().getAttribut("rapport"));
 				/*stockage reception*/
 			}
 		}

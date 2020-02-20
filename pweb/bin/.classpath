@@ -26,5 +26,6 @@
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jar_files (5)/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jakarta.jws-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/string-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/renar/Desktop/GitHub/jar/jackson-core-2.7.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
