@@ -23,13 +23,13 @@ import org.w3c.dom.Element;
  */
 @WebServlet(urlPatterns="/recepteur")
 
-public class recepteur extends HttpServlet {
+public class Recepteur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public recepteur() {
+    public Recepteur() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,51 +41,63 @@ public class recepteur extends HttpServlet {
 		// TODO Auto-generated method stub
 		ServletConfig config = getServletConfig();
 		HttpSession session = request.getSession();
+		String rep = getMsgType(request);
+		if(rep.equals("XML"))
+		{
+			try 
+			{
+			  final DocumentBuilder builder = factory.newDocumentBuilder();		
+			  final Document document = builder.parse(request);
+			}
+			catch (final ParserConfigurationException e) 
+			{
+			  e.printStackTrace();
+			}
+			catch (final SAXException e) 
+			{
+			  e.printStackTrace();
+			}
+			catch (final IOException e) 
+			{
+			  e.printStackTrace();
+			}
+			final Element reception = document.getDocumentElement();
+			/*stokage reception*/
+		}
+		else
+		{
+			if(rep.equals("JSON"))
+			{
+				JSONObject reception = new JSONObject(request);
+				/*stockage reception*/
+			}
+		}
 		
-		JSONObject reception = new JSONObject(request);
-		/*stockage reception*/
 		
 		response.status(HttpServletResponse.SC_OK);
 		this.getServletContext().getRequestDispatcher("").forward(request, response);
-		response.getWriter().append(" ");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try 
-		{
-		  final DocumentBuilder builder = factory.newDocumentBuilder();
-		}
-		catch (final ParserConfigurationException e) 
-		{
-		  e.printStackTrace();
-		}
-		final Document document= builder.parse(new File(request));
-		try 
-		{
-		  final DocumentBuilder builder = factory.newDocumentBuilder();		
-		  final Document document = builder.parse(new File("repertoire.xml"));
-		}
-		catch (final ParserConfigurationException e) 
-		{
-		  e.printStackTrace();
-		}
-		catch (final SAXException e) 
-		{
-		  e.printStackTrace();
-		}
-		catch (final IOException e) 
-		{
-		  e.printStackTrace();
-		}
-		final Element reception = document.getDocumentElement();
-		/*stokage reception*/
-		
-		response.status(HttpServletResponse.SC_OK);
-		this.getServletContext().getRequestDispatcher("").forward(request, response);
-		response.getWriter().append(" ");
-		//doGet(request, response);
+		doGet(request, response);
+	}
+	
+	public static String getMsgType(String message) {
+	    try {
+	        new ObjectMapper().readTree(message);
+	        return "JSON";
+	    } catch (IOException e) {
+	    }
+
+	    try {
+	        DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(message)));
+	        return "XML";
+	    } catch (Exception e) {
+	    }
+
+	    return null;
 	}
 }
