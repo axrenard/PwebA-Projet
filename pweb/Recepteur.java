@@ -18,7 +18,6 @@ import org.w3c.dom.Element;
 import javax.jws.WebService;
 import com.fasterxml.jackson.*;
 
-
 /**
  * Servlet implementation class recepteur
  */
@@ -46,20 +45,20 @@ public class Recepteur extends HttpServlet {
 		{
 			final DocumentBuilder builder = DocumentBuilderFactory.newDocumentBuilder();		
 			final Document document = builder.parse(request.getServletContext().getAttribut("rapport"));
-			final Element reception = document.getDocumentElement();
-			a = false;
+			final Element receptionxml = document.getDocumentElement();
 		}
 		catch (IOException e)
 		{
-			JSONObject reception = new JSONObject(request.getServletContext().getAttribut("rapport")); 
+			a = false;
+			JSONObject receptionjson = new JSONObject(request.getServletContext().getAttribut("rapport")); 
 		}
 		if(a)
 		{
-			/*stokage xml*/
+			InsereRapport(xmltorapport(receptionxml));
 		}
 		else
 		{
-			/*stokage json*/
+			InsereRapport(jsontorapport(receptionjson));
 		}
 		
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -87,5 +86,35 @@ public class Recepteur extends HttpServlet {
 	    }
 
 	    return null;
+	}
+	
+	public static Rapport xmltorapport(Element x)
+	{
+		Rapport r = new rapport(x.getAttribute("serie"),x.getAttribute("date"),x.getAttribute("statut"),x.getAttribute("etat"),x.getAttribute("temperature"),x.getAttribute("piece"),x.getAttribute("puce"),x.getAttribute("sanscontact"),x.getAttribute("erreurs"),x.getAttribute("contenu"),x.getAttribute("montant"));
+		return r;
+	}
+	
+	public static Rapport jsontorapport(JsonObject j)
+	{
+		Rapport r = new rapport(j.getString("serie"),j.getString("date"),j.getString("statut"),j.getString("etat"),j.getDouble("temperature"),j.getString("piece"),j.getString("puce"),j.getString("sanscontact"),/**j.getAttribute("erreurs"),j.getAttribute("contenu"),*/j.getDouble("montant"));
+		return r;
+	}
+	
+	protected static void InsereRapport(Rapport r)
+	{
+		String query = "insert into rapports values (:serie, :date, :statut, :etat, :temperature, :piece, :puce, :sanscontact, :erreurs, :contenu, :montant)";
+		Query q = HibernateUtil.getSessionFactory()
+                .getCurrentSession().createQuery(query)
+                .setParameter("serie", serie);
+		q.setParameter("serie", serie);
+		q.setParameter("date", serie);
+		q.setParameter("statut", serie);
+		q.setParameter("etat", serie);
+		q.setParameter("serie", serie);
+		q.setParameter("serie", serie);
+		q.setParameter("serie", serie);
+		q.setParameter("serie", serie);
+		q.setParameter("serie", serie);
+		q.setParameter("serie", serie);
 	}
 }
