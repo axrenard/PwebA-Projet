@@ -1,59 +1,82 @@
 package hib;
 
-import org.hibernate.*;
-import org.hibernate.criterion.Expression;
-
-import java.util.*;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import util.HibernateUtil;
 
-public class DistributeurManager {
-
-    public static void main(String[] args) {
-        DistributeurManager mgr = new DistributeurManager();
-
-        if (args[0].equals("store")) {
-            mgr.createAndStoreDistributeur(args[1], args[2]);
-        }
-        else if (args[0].equals("list")) {
-            List distribs = mgr.listDistributeur();
-            for (int i = 0; i < distribs.size(); i++) {
-                Distributeur thedistrib = (Distributeur) distribs.get(i);
-                System.out.println("Event: " + thedistrib.get_serie() +
-                                   "Type:"+thedistrib.get_type());
-            }
-        }
+import java.util.*;
+import java.text.ParseException;
 
 
-        HibernateUtil.getSessionFactory().close();
+@Path("/managing")
+public class DistributeurManager{
+    
+    @GET
+    @Path("/list")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Distributeur> ListAll() {
+    	HibernateUtil.getSessionFactory()
+        .getCurrentSession().beginTransaction();
+        List<Distributeur>dst= DistributeurManagerServlet.listEvents();
+        HibernateUtil.getSessionFactory()
+        .getCurrentSession().getTransaction().commit();
+        return dst;
     }
-
-    private String createAndStoreDistributeur(String serie, String type) {
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-
-        Distributeur thedistrib = new Distributeur(serie,type);
-
-        session.save(thedistrib);
-
-        session.getTransaction().commit();
-
-        return thedistrib.get_serie();
+    
+    
+    @POST
+    @Path("/create/{s}/{t}/{a}/{e}/{lo}/{la}/{i}/{c}")
+    public Response create(@PathParam("s")String serie,
+    		@PathParam("t")String type, 
+    		@PathParam("a")String adr, 
+    		@PathParam("e")String emp, 
+    		@PathParam("lo")String lon, 
+    		@PathParam("la")String lat, 
+    		@PathParam("i")String inte, 
+    		@PathParam("c")String com) throws ParseException {
+    	
+    	HibernateUtil.getSessionFactory()
+        .getCurrentSession().beginTransaction();
+        DistributeurManagerServlet.createAndStoreDistributeur(serie,type,adr,emp,lon,lat,inte,com);
+        HibernateUtil.getSessionFactory()
+        .getCurrentSession().getTransaction().commit();
+        return Response.status(Response.Status.OK).build();
     }
-
-
-    private List listDistributeur() {
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-
-        List result = session.createQuery("from Distributeur").list();
-
-        session.getTransaction().commit();
-
-        return result;
+    
+    @POST
+    @Path("/modify/{s}/{a}/{e}/{lo}/{la}/{i}/{c}")
+    public Response modify(@PathParam("s")String serie, 
+    		@PathParam("a")String adr, 
+    		@PathParam("e")String emp, 
+    		@PathParam("lo")String lon, 
+    		@PathParam("la")String lat, 
+    		@PathParam("i")String inte, 
+    		@PathParam("c")String com) throws ParseException {
+    	
+    	HibernateUtil.getSessionFactory()
+        .getCurrentSession().beginTransaction();
+        DistributeurManagerServlet.ModifyDistributeur(serie,adr,emp,lon,lat,inte,com);
+        HibernateUtil.getSessionFactory()
+        .getCurrentSession().getTransaction().commit();
+        return Response.status(Response.Status.OK).build();
     }
-
-
+    
+    @DELETE
+    @Path("/delete/{s}")
+    public Response modify(@PathParam("s")String serie) throws ParseException {
+    	
+    	HibernateUtil.getSessionFactory()
+        .getCurrentSession().beginTransaction();
+        DistributeurManagerServlet.DeleteDistributeur(serie);
+        HibernateUtil.getSessionFactory()
+        .getCurrentSession().getTransaction().commit();
+        return Response.status(Response.Status.OK).build();
+    }
 }

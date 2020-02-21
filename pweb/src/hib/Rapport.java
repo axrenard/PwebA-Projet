@@ -5,19 +5,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Rapport {
+	private Integer id;
 	private String serie;
 	private Date date;
 	private String statut;
 	private String etat;
-	private Long temperature;
+	private Float temperature;
 	private String piece;
 	private String puce;
 	private String sanscontact;
 	private Set<String>erreurs = new HashSet<>();
 	private Set<Article>contenu =new HashSet<>();
-	private Long montant;
+	private Float montant;
 	
-	public Rapport(String s, Date d, String st, String e, Long t, String p, String pu, String sans, Set<String> er, Set<Article> c, Long m) {
+	public Rapport(String s, Date d, String st, String e, Float t, String p, String pu, String sans, Set<String> er, Set<Article> c, Float m) {
 		serie = s;
 		date = d;
 		statut = st;
@@ -29,6 +30,10 @@ public class Rapport {
 		erreurs = er;
 		contenu = c;
 		montant = m;
+	}
+	
+	public Integer get_id() {
+		return id;
 	}
 	
 	public Rapport() {
@@ -51,7 +56,7 @@ public class Rapport {
 		return etat;
 	}
 	
-	public Long get_temperature() {
+	public Float get_temperature() {
 		return temperature;
 	}
 	
@@ -75,7 +80,7 @@ public class Rapport {
 		return contenu;
 	}
 	
-	public Long get_montant() {
+	public Float get_montant() {
 		return montant;
 	}
 }

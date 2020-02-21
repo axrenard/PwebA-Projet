@@ -16,6 +16,12 @@
 	<form method ="GET" action="distributeurmanager">
 		N serie: <input type="text" name="serie" maxlength="50"/><br/>
 		Type: <input type="text" name="type" maxlength="20"/><br/>
+		Adresse: <input type="text" name="adr" maxlength="50"/><br/>
+		Emplacement: <input type="text" name="emp" maxlength="50"/><br/>
+		Longitude: <input type="number" name="lon" maxlength="50"/><br/>
+		Latitude: <input type="number" name="lat" maxlength="50"/><br/>
+		Intervention: <input type="text" name="int"/><br/>
+		Commentaire: <input type="text" name="com" maxlength="50"/><br/>
 	<input type='submit' name='action' value='store'/>
 	</form>
 	<h2>Modify Distributeur:</h2>
@@ -34,22 +40,6 @@
 		N serie existant: <input type="text" name="serie" maxlength="50"/><br/>
 	<input type='submit' name='action' value='delete'/>
 	</form>
-	<% List<Distributeur> result = (List<Distributeur>) request.getAttribute("liste"); %>
-	<%if (result.size() > 0) { %>
-	<h2>Distributeurs in database:</h2>
-	<table border='1'>
-	<tr>
-	<th>N serie</th>
-	<th>Type</th>
-	</tr>
-	<%for (Iterator it = result.iterator(); it.hasNext();) {
-		Distributeur dst = (Distributeur) it.next();%>
-		<tr>
-		<td><%=dst.get_serie()%></td>
-		<td><%=dst.get_type()%></td>
-		</tr>
-	<%} %>	
-	</table>
-	<%} %>
+	
 </body>
 </html>
