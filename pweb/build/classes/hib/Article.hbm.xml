@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18 f?vr. 2020 ? 10:30:10 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 20 f?vr. 2020 ? 20:16:28 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="hib.Article" table="ARTICLE">
         <id name="id" type="java.lang.Integer" access="field">

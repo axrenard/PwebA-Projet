@@ -9,8 +9,8 @@ public class Distributeur {
 	private String type;
 	private String adresse;
 	private String emplacement;
-	private Long longitude;
-	private Long latitude;
+	private Float longitude;
+	private Float latitude;
 	private Date intervention;
 	private String commentaire;
 	private Set<Rapport>rapports = new HashSet<>();
@@ -44,11 +44,11 @@ public class Distributeur {
 		return emplacement;
 	}
 	
-	public Long get_longitude() {
+	public Float get_longitude() {
 		return longitude;
 	}
 	
-	public Long get_latitude() {
+	public Float get_latitude() {
 		return latitude;
 	}
 		
@@ -68,12 +68,12 @@ public class Distributeur {
 		emplacement = em;
 	}
 	
-	public void set_longitude(Long l) {
+	public void set_longitude(Float l) {
 		longitude =l;
 	}
 	
-	public void set_latitude(Long l) {
-		longitude =l;
+	public void set_latitude(Float l) {
+		latitude =l;
 	}
 	
 	public void set_intervention(Date i) {

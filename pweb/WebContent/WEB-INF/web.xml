@@ -5,12 +5,20 @@
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   <servlet>
-        <servlet-name>Distributeur Manager</servlet-name>
-        <servlet-class>hib.DistributeurManagerServlet</servlet-class>
-    </servlet>
+    <servlet-name>Distributeur Manager</servlet-name>
+    <servlet-class>hib.Connexion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Distributeur Manager</servlet-name>
+    <url-pattern>/distributeurmanager</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Recepteur</servlet-name>
+    <servlet-class>rec.recepteur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Recepteur</servlet-name>
+    <url-pattern>/recepteur</url-pattern>
+  </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>Distributeur Manager</servlet-name>
-        <url-pattern>/distributeurmanager</url-pattern>
-    </servlet-mapping>
 </web-app>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18 f?vr. 2020 ? 10:18:13 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 20 f?vr. 2020 ? 20:16:28 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="hib.Distributeur" table="DISTRIBUTEUR">
         <id name="serie" type="java.lang.String" access="field">
@@ -17,10 +17,10 @@
         <property name="emplacement" type="java.lang.String" access="field">
             <column name="EMPLACEMENT" />
         </property>
-        <property name="longitude" type="java.lang.Long" access="field">
+        <property name="longitude" type="java.lang.Float" access="field">
             <column name="LONGITUDE" />
         </property>
-        <property name="latitude" type="java.lang.Long" access="field">
+        <property name="latitude" type="java.lang.Float" access="field">
             <column name="LATITUDE" />
         </property>
         <property name="intervention" type="java.util.Date" access="field">
@@ -29,7 +29,7 @@
         <property name="commentaire" type="java.lang.String" access="field">
             <column name="COMMENTAIRE" />
         </property>
-        <set name="rapports" table="RAPPORT" inverse="false" lazy="true" access="field">
+        <set name="rapports" table="RAPPORT" inverse="false" lazy="false" access="field">
             <key>
                 <column name="SERIE" />
             </key>

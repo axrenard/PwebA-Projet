@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18 f?vr. 2020 ? 10:18:13 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 20 f?vr. 2020 ? 20:16:28 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="hib.Rapport" table="RAPPORT">
-        <id name="serie" type="java.lang.String" access="field">
-            <column name="SERIE" />
+        <id name="id" type="java.lang.Integer" access="field">
+            <column name="ID" />
             <generator class="assigned" />
         </id>
+        <property name="serie" type="java.lang.String" access="field">
+            <column name="SERIE" />
+        </property>
         <property name="date" type="java.util.Date" access="field">
             <column name="DATE" />
         </property>
@@ -17,7 +20,7 @@
         <property name="etat" type="java.lang.String" access="field">
             <column name="ETAT" />
         </property>
-        <property name="temperature" type="java.lang.Long" access="field">
+        <property name="temperature" type="java.lang.Float" access="field">
             <column name="TEMPERATURE" />
         </property>
         <property name="piece" type="java.lang.String" access="field">
@@ -29,21 +32,21 @@
         <property name="sanscontact" type="java.lang.String" access="field">
             <column name="SANSCONTACT" />
         </property>
-        <set name="erreurs" table="RAPPORT" inverse="false" lazy="true" access="field">
+        <set name="erreurs" table="RAPPORT" inverse="false" lazy="false" access="field">
             <key>
-                <column name="SERIE" />
+                <column name="ID" />
             </key>
             <element type="java.lang.String">
                 <column name="ERREURS" />
             </element>
         </set>
-        <set name="contenu" table="ARTICLE" inverse="false" lazy="true" access="field">
+        <set name="contenu" table="ARTICLE" inverse="false" lazy="false" access="field">
             <key>
-                <column name="SERIE" />
+                <column name="ID" />
             </key>
             <one-to-many class="hib.Article" />
         </set>
-        <property name="montant" type="java.lang.Long" access="field">
+        <property name="montant" type="java.lang.Float" access="field">
             <column name="MONTANT" />
         </property>
     </class>

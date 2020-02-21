@@ -6,13 +6,16 @@ public class Article {
 	private Integer quantite;
 	
 	public Article(Integer i,String r, Integer q) {
-		id =i;
 		ref = r;
 		quantite = q;
 	}
 	
 	public Article() {
 		
+	}
+	
+	public Integer get_id() {
+		return id;
 	}
 	
 	public String get_ref() {
