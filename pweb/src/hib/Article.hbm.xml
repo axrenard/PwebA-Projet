@@ -8,6 +8,9 @@
             <column name="ID" />
             <generator class="assigned" />
         </id>
+        <property name="idrapport" type="java.lang.Integer" access="field">
+            <column name="IDRAPPORT" />
+        </property>
         <property name="ref" type="java.lang.String" access="field">
             <column name="REF" />
         </property>

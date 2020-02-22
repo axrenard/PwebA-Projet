@@ -48,7 +48,7 @@ public class DistributeurManagerServlet {
         	theEvent.set_intervention(date1);
         }
         if(!"_".equals(com)) {
-        	theEvent.set_commentaires(com);
+        	theEvent.set_commentaire(com);
         }
 
         HibernateUtil.getSessionFactory()

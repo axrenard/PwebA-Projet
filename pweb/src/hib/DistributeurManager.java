@@ -12,6 +12,8 @@ import javax.ws.rs.core.Response;
 import util.HibernateUtil;
 
 import java.util.*;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 
 
@@ -40,8 +42,16 @@ public class DistributeurManager{
     		@PathParam("lo")String lon, 
     		@PathParam("la")String lat, 
     		@PathParam("i")String inte, 
-    		@PathParam("c")String com) throws ParseException {
+    		@PathParam("c")String com) throws ParseException, UnsupportedEncodingException {
     	
+    	serie = URLDecoder.decode(serie, "UTF-8");
+    	adr = URLDecoder.decode(adr, "UTF-8");
+    	emp = URLDecoder.decode(emp, "UTF-8");
+    	lon = URLDecoder.decode(lon, "UTF-8");
+    	lat = URLDecoder.decode(lat, "UTF-8");
+    	type = URLDecoder.decode(type, "UTF-8");
+    	inte = URLDecoder.decode(inte, "UTF-8");
+    	com = URLDecoder.decode(com, "UTF-8");
     	HibernateUtil.getSessionFactory()
         .getCurrentSession().beginTransaction();
         DistributeurManagerServlet.createAndStoreDistributeur(serie,type,adr,emp,lon,lat,inte,com);
@@ -58,8 +68,15 @@ public class DistributeurManager{
     		@PathParam("lo")String lon, 
     		@PathParam("la")String lat, 
     		@PathParam("i")String inte, 
-    		@PathParam("c")String com) throws ParseException {
+    		@PathParam("c")String com) throws ParseException, UnsupportedEncodingException {
     	
+    	serie = URLDecoder.decode(serie, "UTF-8");
+    	adr = URLDecoder.decode(adr, "UTF-8");
+    	emp = URLDecoder.decode(emp, "UTF-8");
+    	lon = URLDecoder.decode(lon, "UTF-8");
+    	lat = URLDecoder.decode(lat, "UTF-8");
+    	inte = URLDecoder.decode(inte, "UTF-8");
+    	com = URLDecoder.decode(com, "UTF-8");
     	HibernateUtil.getSessionFactory()
         .getCurrentSession().beginTransaction();
         DistributeurManagerServlet.ModifyDistributeur(serie,adr,emp,lon,lat,inte,com);
