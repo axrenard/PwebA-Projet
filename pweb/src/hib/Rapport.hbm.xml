@@ -42,7 +42,7 @@
         </set>
         <set name="contenu" table="ARTICLE" inverse="false" lazy="false" access="field">
             <key>
-                <column name="ID" />
+                <column name="IDRAPPORT" />
             </key>
             <one-to-many class="hib.Article" />
         </set>

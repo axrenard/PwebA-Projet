@@ -83,4 +83,45 @@ public class Rapport {
 	public Float get_montant() {
 		return montant;
 	}
+	
+	public void set_serie(String s) {
+		serie=s;
+	}
+	
+	public void set_date(Date s) {
+		date=s;
+	}
+
+	public void set_statut(String s) {
+		statut=s;
+	}
+	
+	public void set_etat(String s) {
+		etat=s;
+	}
+	
+	public void set_temperature(Float s) {
+		temperature=s;
+	}
+	
+	public void set_piece(String s) {
+		piece=s;
+	}
+	
+	public void set_puce(String s) {
+		puce=s;
+	}
+	
+	public void set_sanscontact(String s) {
+		sanscontact=s;
+	}
+	
+	public void set_montant(Float s) {
+		montant=s;
+	}
+	
+	public void set_id(Integer s) {
+		id=s;
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class Distributeur {
 	private String serie;
 	private String type;
@@ -60,6 +61,15 @@ public class Distributeur {
 		return rapports;
 	}
 	
+	
+	public void set_serie(String s) {
+		serie= s;
+	}
+	
+	public void set_type(String t) {
+		type = t;
+	}
+	
 	public void set_adresse(String adr) {
 		adresse = adr;
 	}
@@ -80,9 +90,12 @@ public class Distributeur {
 		intervention =i;
 	}
 	
-	public void set_commentaires(String c) {
+	public void set_commentaire(String c) {
 		commentaire =c;
 	}
 	
+	public void set_rapports(Set<Rapport> s) {
+		rapports =s;
+	}
 	
 }
