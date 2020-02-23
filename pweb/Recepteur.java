@@ -1,4 +1,3 @@
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -104,17 +103,19 @@ public class Recepteur extends HttpServlet {
 	{
 		String query = "insert into rapports values (:serie, :date, :statut, :etat, :temperature, :piece, :puce, :sanscontact, :erreurs, :contenu, :montant)";
 		Query q = HibernateUtil.getSessionFactory()
-                .getCurrentSession().createQuery(query)
-                .setParameter("serie", serie);
+                .getCurrentSession().createQuery(query);
 		q.setParameter("serie", serie);
-		q.setParameter("date", serie);
-		q.setParameter("statut", serie);
-		q.setParameter("etat", serie);
-		q.setParameter("serie", serie);
-		q.setParameter("serie", serie);
-		q.setParameter("serie", serie);
-		q.setParameter("serie", serie);
-		q.setParameter("serie", serie);
-		q.setParameter("serie", serie);
+		q.setParameter("date", date);
+		q.setParameter("statut", statut);
+		q.setParameter("etat", etat);
+		q.setParameter("temperature", temperature);
+		q.setParameter("piece", piece);
+		q.setParameter("puce", puce);
+		q.setParameter("sanscontact", sanscontact);
+		q.setParameter("erreurs", erreurs);
+		q.setParameter("contenu", contenu);
+		q.setParameter("montant", montant);
+	
+	
 	}
 }
