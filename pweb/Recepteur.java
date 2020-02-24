@@ -112,10 +112,9 @@ public class Recepteur extends HttpServlet {
 		q.setParameter("piece", piece);
 		q.setParameter("puce", puce);
 		q.setParameter("sanscontact", sanscontact);
-		q.setParameter("erreurs", erreurs);
-		q.setParameter("contenu", contenu);
+		/**q.setParameter("erreurs", erreurs);
+		q.setParameter("contenu", contenu);*/
 		q.setParameter("montant", montant);
-	
-	
+		q.executeUpdate();
 	}
 }
