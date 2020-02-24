@@ -29,7 +29,7 @@
         <property name="commentaire" type="java.lang.String" access="field">
             <column name="COMMENTAIRE" />
         </property>
-        <set name="rapports" table="RAPPORT" inverse="false" lazy="false" access="field">
+        <set name="rapports" table="RAPPORT" inverse="false" lazy="false" access="field" cascade="delete">
             <key>
                 <column name="SERIE" />
             </key>

@@ -90,7 +90,7 @@ public class Connexion extends HttpServlet {
     			    conn.setRequestMethod("POST");
     			    Map<String, List<String>> header = conn.getHeaderFields();
     			    int responseCode = conn.getResponseCode();
-    			    if(responseCode==200)
+    			    if(responseCode!=200)
     			    	request.setAttribute("msg", "Erreur d'écriture vers la base de donnée");
     			    
     			}
@@ -109,7 +109,7 @@ public class Connexion extends HttpServlet {
     				 conn.setRequestMethod("DELETE");
     				 Map<String, List<String>> header = conn.getHeaderFields();
     				 int responseCode = conn.getResponseCode();
-    				 if(responseCode==200)
+    				 if(responseCode!=200)
      			    	request.setAttribute("msg", "Erreur d'écriture vers la base de donnée");
 
     			}
@@ -167,6 +167,8 @@ public class Connexion extends HttpServlet {
     			    conn.setRequestMethod("POST");
     			    Map<String, List<String>> header = conn.getHeaderFields();
     			    int responseCode = conn.getResponseCode();
+    			    if(responseCode!=200)
+     			    	request.setAttribute("msg", "Erreur d'écriture vers la base de donnée");
     			}
     		}
     		

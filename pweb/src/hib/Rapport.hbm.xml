@@ -40,7 +40,7 @@
                 <column name="ERREURS" />
             </element>
         </set>
-        <set name="contenu" table="ARTICLE" inverse="false" lazy="false" access="field">
+        <set name="contenu" table="ARTICLE" inverse="false" lazy="false" access="field" cascade="delete">
             <key>
                 <column name="IDRAPPORT" />
             </key>

@@ -56,10 +56,12 @@ public class DistributeurManagerServlet {
     }
     
     static void DeleteDistributeur(String serie) {
+         Query q =HibernateUtil.getSessionFactory()
+                .getCurrentSession().createQuery("from Distributeur where serie = :serie")
+                .setParameter("serie", serie);
+        Distributeur dst = (Distributeur)q.list().get(0);
         HibernateUtil.getSessionFactory()
-                .getCurrentSession().createQuery("delete from Distributeur where serie = :serie")
-                .setParameter("serie", serie)
-                .executeUpdate();;
+        .getCurrentSession().delete(dst);
 
     }
     static void ModifyDistributeur(String serie, String adr, String emp, String lon, String lat, String inte, String com) throws ParseException {
