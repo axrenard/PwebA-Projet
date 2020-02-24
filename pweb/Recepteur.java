@@ -95,7 +95,7 @@ public class Recepteur extends HttpServlet {
 	
 	public static Rapport jsontorapport(JsonObject j)
 	{
-		Rapport r = new rapport(j.getString("serie"),j.getString("date"),j.getString("statut"),j.getString("etat"),j.getDouble("temperature"),j.getString("piece"),j.getString("puce"),j.getString("sanscontact"),/**j.getAttribute("erreurs"),j.getAttribute("contenu"),*/j.getDouble("montant"));
+		Rapport r = new rapport(j.getString("serie"),j.getString("date"),j.getString("statut"),j.getString("etat"),j.getDouble("temperature"),j.getString("piece"),j.getString("puce"),j.getString("sanscontact"),j.getElementById("erreurs"),j.getElementById("contenu"),j.getDouble("montant"));
 		return r;
 	}
 	
@@ -112,8 +112,8 @@ public class Recepteur extends HttpServlet {
 		q.setParameter("piece", piece);
 		q.setParameter("puce", puce);
 		q.setParameter("sanscontact", sanscontact);
-		/**q.setParameter("erreurs", erreurs);
-		q.setParameter("contenu", contenu);*/
+		q.setParameter("erreurs", erreurs);
+		q.setParameter("contenu", contenu);
 		q.setParameter("montant", montant);
 		q.executeUpdate();
 	}
