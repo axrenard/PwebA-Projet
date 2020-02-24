@@ -101,7 +101,7 @@
 		<td><%=dst.get_latitude()%></td>
 		<td><%=dst.get_intervention()%></td>
 		<td><%=dst.get_commentaire()%></td>
-		<td><%=rapp.get_erreurs()%></td>
+		<td><%=rapp.get_montant()%></td>
 		</tr>
 	<%} %>	
 	</table>
