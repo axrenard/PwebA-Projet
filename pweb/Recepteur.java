@@ -20,8 +20,7 @@ import com.fasterxml.jackson.*;
 /**
  * Servlet implementation class recepteur
  */
-@WebService(urlPatterns="/recepteur")
-
+@Path("/recepteur")
 public class Recepteur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,6 +35,7 @@ public class Recepteur extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @GET
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String rep = getMsgType(request.getServletContext().getAttribute("rapport"));
