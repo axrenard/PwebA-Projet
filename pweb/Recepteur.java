@@ -16,6 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import javax.jws.WebService;
 import com.fasterxml.jackson.*;
+import javax.ws.rs.*;;
 
 /**
  * Servlet implementation class recepteur
@@ -67,6 +68,7 @@ public class Recepteur extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+ 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
