@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +27,7 @@ import util.HibernateUtil;
 
 import java.util.*;
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -116,7 +118,7 @@ public class DistributeurManager{
     @Path("/recepteur")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response recepteurjson(String json) throws ParseException, JsonMappingException, JSONException, JsonProcessingException {
-		JSONObject receptionjson;
+    	JSONObject receptionjson;
 		receptionjson = new JSONObject(json);
 		try {
 			Recepteur.InsereRapport(Recepteur.jsontorapport(receptionjson));
@@ -135,13 +137,13 @@ public class DistributeurManager{
     public Response recepteurxml(String xml) throws ParseException {
     	final Element receptionxml;
     	final DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
+		DocumentBuilder build;
 		try {
-			builder = fac.newDocumentBuilder();
+			build = fac.newDocumentBuilder();
 			Document document;
 			try {
 				try {
-					document = builder.parse(xml);
+					document = build.parse(new InputSource(new StringReader(xml)));
 					receptionxml = document.getDocumentElement();
 					Recepteur.InsereRapport(Recepteur.xmltorapport(receptionxml));
 				} catch (IOException e) {
@@ -154,7 +156,6 @@ public class DistributeurManager{
 			e.printStackTrace();
 		}
 
-    	
         return Response.status(Response.Status.OK).build();
     }
 }

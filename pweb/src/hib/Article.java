@@ -6,7 +6,7 @@ public class Article {
 	private String ref;
 	private Integer quantite;
 	
-	public Article(Integer i,String r, Integer q) {
+	public Article(String r, Integer q) {
 		ref = r;
 		quantite = q;
 	}
