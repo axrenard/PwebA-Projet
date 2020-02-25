@@ -14,11 +14,11 @@ public class Rapport {
 	private String piece;
 	private String puce;
 	private String sanscontact;
-	private Set<String>erreurs = new HashSet<>();
+	private String erreurs;
 	private Set<Article>contenu =new HashSet<>();
 	private Float montant;
 	
-	public Rapport(String s, Date d, String st, String e, Float t, String p, String pu, String sans, Set<String> er, Set<Article> c, Float m) {
+	public Rapport(String s, Date d, String st, String e, Float t, String p, String pu, String sans, String er, Set<Article> c, Float m) {
 		serie = s;
 		date = d;
 		statut = st;
@@ -72,7 +72,7 @@ public class Rapport {
 		return sanscontact;
 	}
 	
-	public Set<String> get_erreurs() {
+	public String get_erreurs() {
 		return erreurs;
 	}
 	
@@ -118,6 +118,10 @@ public class Rapport {
 	
 	public void set_montant(Float s) {
 		montant=s;
+	}
+	
+	public void set_erreurs(String e) {
+		erreurs=e;
 	}
 	
 	public void set_id(Integer s) {

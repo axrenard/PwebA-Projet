@@ -191,6 +191,7 @@ public class Connexion extends HttpServlet {
     		DateFormat df =new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z[UTC]'");
     		objectMapper.setDateFormat(df);
     		Distributeur[] dist = objectMapper.readValue(doc, Distributeur[].class);
+
     		
     		List<Distributeur> app = new ArrayList<Distributeur>();
     		List<Distributeur> ver= new ArrayList<Distributeur>();
@@ -200,9 +201,9 @@ public class Connexion extends HttpServlet {
     		for(Distributeur d : dist) {
     			Rapport r = null;
     			for(Rapport r2:d.get_rapports()) {
-    				if(r==null)
+    				if(r==null) {
     					r=r2;
-    				else {
+    				}else {
     					if(r.get_date().before(r2.get_date()))
     						r=r2;
     				}

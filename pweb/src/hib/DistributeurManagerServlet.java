@@ -22,7 +22,6 @@ public class DistributeurManagerServlet {
     	CriteriaQuery<Distributeur> criteria = builder.createQuery(Distributeur.class);
     	criteria.from(Distributeur.class);
     	List<Distributeur> contacts = HibernateUtil.getSessionFactory().getCurrentSession().createQuery(criteria).getResultList();
-
         return contacts;
     }
 

@@ -6,7 +6,7 @@
     <class name="hib.Rapport" table="RAPPORT">
         <id name="id" type="java.lang.Integer" access="field">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="serie" type="java.lang.String" access="field">
             <column name="SERIE" />
@@ -32,14 +32,9 @@
         <property name="sanscontact" type="java.lang.String" access="field">
             <column name="SANSCONTACT" />
         </property>
-        <set name="erreurs" table="RAPPORT" inverse="false" lazy="false" access="field">
-            <key>
-                <column name="ID" />
-            </key>
-            <element type="java.lang.String">
-                <column name="ERREURS" />
-            </element>
-        </set>
+        <property name="erreurs" type="java.lang.String" access="field">
+            <column name="ERREURS" />
+        </property>
         <set name="contenu" table="ARTICLE" inverse="false" lazy="false" access="field" cascade="delete">
             <key>
                 <column name="IDRAPPORT" />
