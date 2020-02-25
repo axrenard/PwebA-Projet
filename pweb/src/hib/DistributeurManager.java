@@ -22,10 +22,6 @@ import org.xml.sax.SAXException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import tp3xmljava.File;
-import tp3xmljava.Node;
-import tp3xmljava.NodeList;
-import tp3xmljava.String;
 import util.HibernateUtil;
 
 import java.util.*;
