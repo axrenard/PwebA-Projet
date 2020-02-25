@@ -1,26 +1,26 @@
 <rapport>
-	<serie> 456789 </serie>
-	<date>  12:50 17/02/2020 </date>
-	<statut> hors service </statut>
-		<etat> erreur </etat>
-		<temperature> -15 </temperature>
-			<piece> vide </piece>
-			<puce> erreur </puce>
-			<sanscontact> erreur </sanscontact>
-		<erreurs> blocage machine</erreurs>
+	<serie>456789</serie>
+	<date>12:50 17/02/2020</date>
+	<statut>hors service</statut>
+		<etat>erreur</etat>
+		<temperature>-15</temperature>
+			<piece>vide</piece>
+			<puce>erreur</puce>
+			<sanscontact>erreur</sanscontact>
+		<erreurs>blocage machine</erreurs>
 	<contenu> 
 		<article>
-			<ref> the vert </ref>
-			<quantite> 12 </quantite>
-			<ref> the noir </ref>
-			<quantite> 5 </quantite>
-			<ref> café </ref>
-			<quantite> 7 </quantite>
-			<ref> chocolat </ref>
-			<quantite> 11 </quantite>
-			<ref> café au lait </ref>
-			<quantite> 3 </quantite>
+			<ref>the vert</ref>
+			<quantite>12</quantite>
+			<ref>the noir</ref>
+			<quantite>5</quantite>
+			<ref>café</ref>
+			<quantite>7</quantite>
+			<ref>chocolat</ref>
+			<quantite>11</quantite>
+			<ref>café au lait</ref>
+			<quantite>3</quantite>
 		</article>
 	</contenu>
-	<montant> 149 </montant>
+	<montant>149</montant>
 </rapport>
