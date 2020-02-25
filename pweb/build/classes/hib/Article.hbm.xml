@@ -6,7 +6,7 @@
     <class name="hib.Article" table="ARTICLE">
         <id name="id" type="java.lang.Integer" access="field">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="idrapport" type="java.lang.Integer" access="field">
             <column name="IDRAPPORT" />
@@ -17,5 +17,11 @@
         <property name="quantite" type="java.lang.Integer" access="field">
             <column name="QUANTITE" />
         </property>
+        <!--  <set name="article" table="ARTICLE" inverse="false" lazy="false" access="field" cascade="all">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="hib.Rapport" />
+        </set>-->
     </class>
 </hibernate-mapping>

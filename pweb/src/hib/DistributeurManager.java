@@ -1,5 +1,6 @@
 package hib;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,10 +9,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import util.HibernateUtil;
 
 import java.util.*;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -94,6 +108,53 @@ public class DistributeurManager{
         DistributeurManagerServlet.DeleteDistributeur(serie);
         HibernateUtil.getSessionFactory()
         .getCurrentSession().getTransaction().commit();
+        return Response.status(Response.Status.OK).build();
+    }
+    
+    
+    @POST
+    @Path("/recepteur")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response recepteurjson(String json) throws ParseException, JsonMappingException, JSONException, JsonProcessingException {
+		JSONObject receptionjson;
+		receptionjson = new JSONObject(json);
+		try {
+			Recepteur.InsereRapport(Recepteur.jsontorapport(receptionjson));
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+        return Response.status(Response.Status.OK).build();
+    }
+    
+    
+    @POST
+    @Path("/recepteur")
+    @Consumes(MediaType.APPLICATION_XML)
+    public Response recepteurxml(String xml) throws ParseException {
+    	final Element receptionxml;
+    	final DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		try {
+			builder = fac.newDocumentBuilder();
+			Document document;
+			try {
+				try {
+					document = builder.parse(xml);
+					receptionxml = document.getDocumentElement();
+					Recepteur.InsereRapport(Recepteur.xmltorapport(receptionxml));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+
+    	
         return Response.status(Response.Status.OK).build();
     }
 }

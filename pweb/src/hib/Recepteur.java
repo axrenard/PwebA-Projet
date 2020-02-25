@@ -1,56 +1,36 @@
 package hib;
 
-import javax.json.JsonObject;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.hibernate.query.Query;
 /** import à ajouter */
 import org.json.*;
-import java.net.*;
+
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.io.*;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import com.fasterxml.jackson.*;
+import org.w3c.dom.Element;
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+//import jdk.nashorn.internal.parser.JSONParser;
 import util.HibernateUtil;
+import java.util.Set;
 
-import javax.ws.rs.*;;
 
-/**
- * Servlet implementation class recepteur
- */
-@Path("/recepteur")
-public class Recepteur extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Recepteur() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+public class Recepteur {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    @GET
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String rep = getMsgType((String)request.getServletContext().getAttribute("rapport"));
+		/**String rep = getMsgType((String)request.getServletContext().getAttribute("rapport"));
 		final Element receptionxml;
 		JSONObject receptionjson;
 		try
@@ -65,7 +45,8 @@ public class Recepteur extends HttpServlet {
 					receptionxml = document.getDocumentElement();
 					InsereRapport(xmltorapport(receptionxml));
 				} catch (SAXException e) {
-					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 			} catch (ParserConfigurationException e) {
@@ -75,22 +56,18 @@ public class Recepteur extends HttpServlet {
 		catch (IOException e)
 		{
 			receptionjson = new JSONObject(request.getServletContext().getAttribute("rapport"));
-			InsereRapport(jsontorapport(receptionjson));
+			try {
+				InsereRapport(jsontorapport(receptionjson));
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
 		}
-		
-		response.setStatus(HttpServletResponse.SC_OK);
-		this.getServletContext().getRequestDispatcher("").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
- 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+	*/	
 	}
 	
-	public static String getMsgType(String message) {
+	/**public static String getMsgType(String message) {
 	    try {
 	        new ObjectMapper().readTree(message);
 	        return "JSON";
@@ -105,24 +82,51 @@ public class Recepteur extends HttpServlet {
 
 	    return null;
 	}
-	
-	public static Rapport xmltorapport(Element x)
+	*/
+	public static Rapport xmltorapport(Element receptionxml) throws ParseException
 	{
-		Date date1=new SimpleDateFormat("dd-MM-yyyy").parse(x.getAttribute("date"));
-		Rapport r = new Rapport(x.getAttribute("serie"),date1,x.getAttribute("statut"),x.getAttribute("etat"),Float.parseFloat(x.getAttribute("temperature")),x.getAttribute("piece"),x.getAttribute("puce"),x.getAttribute("sanscontact"),x.getAttribute("erreurs"),x.getAttribute("contenu"),Float.parseFloat(x.getAttribute("montant")));
+		Set<String>err = (Set<String>) receptionxml.getElementsByTagName("erreurs");
+		Set<Article>cont = (Set<Article>) receptionxml.getElementsByTagName("contenu");
+		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(receptionxml.getAttribute("date"));
+		Rapport r = new Rapport(receptionxml.getAttribute("serie"),date1,receptionxml.getAttribute("statut"),receptionxml.getAttribute("etat"),Float.parseFloat(receptionxml.getAttribute("temperature")),receptionxml.getAttribute("piece"),receptionxml.getAttribute("puce"),receptionxml.getAttribute("sanscontact"),err,cont,Float.parseFloat(receptionxml.getAttribute("montant")));
 		return r;
 	}
 	
-	public static Rapport jsontorapport(JSONObject receptionjson)
+	public static Rapport jsontorapport(JSONObject receptionjson) throws JSONException, ParseException, JsonMappingException, JsonProcessingException
 	{
-		Rapport r = new Rapport(receptionjson.getString("serie"),receptionjson.getString("date"),receptionjson.getString("statut"),receptionjson.getString("etat"),receptionjson.getDouble("temperature"),receptionjson.getString("piece"),receptionjson.getString("puce"),receptionjson.getString("sanscontact"),receptionjson.getElementById("erreurs"),receptionjson.getElementById("contenu"),receptionjson.getDouble("montant"));
-		return r;
+		ObjectMapper om = new ObjectMapper();
+		DateFormat df =new SimpleDateFormat("HH:mm' 'dd/MM/yyyy");
+		om.setDateFormat(df);
+		Rapport r = om.readValue(receptionjson.toString(), Rapport.class);
+		System.out.println(r.get_montant());
+		System.out.println(r.get_erreurs());
+		/**String[] er = om.readValue(receptionjson.getJSONArray("erreurs").getString(0), String[].class);
+		Article[] con = om.readValue(receptionjson.getJSONArray("contenu").getString(0), Article[].class);
+		Set<String>err = new HashSet<>();
+		for(String s:er) {
+			err.add(s);
+		}
+		Set<Article>cont= new HashSet<>();
+		for(Article a:con) {
+			cont.add(a);
+		}
+		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(receptionjson.getString("date"));
+		Rapport r = new Rapport(receptionjson.getString("serie"),date1,receptionjson.getString("statut"),receptionjson.getString("etat"),receptionjson.getFloat("temperature"),receptionjson.getString("piece"),receptionjson.getString("puce"),receptionjson.getString("sanscontact"),err,cont,receptionjson.getFloat("montant"));
+		*/return r;
 	}
 	
 	protected static void InsereRapport(Rapport r)
 	{
 		HibernateUtil.getSessionFactory()
+        .getCurrentSession().beginTransaction();
+		for(Article a : r.get_contenu()){
+			HibernateUtil.getSessionFactory()
+            .getCurrentSession().save(a);
+		}
+		HibernateUtil.getSessionFactory()
                 .getCurrentSession().save(r);
+		HibernateUtil.getSessionFactory()
+        .getCurrentSession().getTransaction().commit();
 
 	}
 }
