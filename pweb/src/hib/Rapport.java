@@ -1,3 +1,5 @@
+package hib;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,11 +14,11 @@ public class Rapport {
 	private String piece;
 	private String puce;
 	private String sanscontact;
-	private Set<String>erreurs = new HashSet<>();
+	private String erreurs;
 	private Set<Article>contenu =new HashSet<>();
 	private Float montant;
 	
-	public Rapport(String s, Date d, String st, String e, Float t, String p, String pu, String sans, Set<String> er, Set<Article> c, Float m) {
+	public Rapport(String s, Date d, String st, String e, Float t, String p, String pu, String sans, String er, Set<Article> c, Float m) {
 		serie = s;
 		date = d;
 		statut = st;
@@ -70,7 +72,7 @@ public class Rapport {
 		return sanscontact;
 	}
 	
-	public Set<String> get_erreurs() {
+	public String get_erreurs() {
 		return erreurs;
 	}
 	
@@ -81,4 +83,49 @@ public class Rapport {
 	public Float get_montant() {
 		return montant;
 	}
+	
+	public void set_serie(String s) {
+		serie=s;
+	}
+	
+	public void set_date(Date s) {
+		date=s;
+	}
+
+	public void set_statut(String s) {
+		statut=s;
+	}
+	
+	public void set_etat(String s) {
+		etat=s;
+	}
+	
+	public void set_temperature(Float s) {
+		temperature=s;
+	}
+	
+	public void set_piece(String s) {
+		piece=s;
+	}
+	
+	public void set_puce(String s) {
+		puce=s;
+	}
+	
+	public void set_sanscontact(String s) {
+		sanscontact=s;
+	}
+	
+	public void set_montant(Float s) {
+		montant=s;
+	}
+	
+	public void set_erreurs(String e) {
+		erreurs=e;
+	}
+	
+	public void set_id(Integer s) {
+		id=s;
+	}
+	
 }

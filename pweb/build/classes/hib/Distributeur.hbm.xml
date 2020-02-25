@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 f?vr. 2020 ? 20:16:28 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="hib.Distributeur" table="DISTRIBUTEUR">
+        <id name="serie" type="java.lang.String" access="field">
+            <column name="SERIE" />
+            <generator class="assigned" />
+        </id>
+        <property name="type" type="java.lang.String" access="field">
+            <column name="TYPE" />
+        </property>
+        <property name="adresse" type="java.lang.String" access="field">
+            <column name="ADRESSE" />
+        </property>
+        <property name="emplacement" type="java.lang.String" access="field">
+            <column name="EMPLACEMENT" />
+        </property>
+        <property name="longitude" type="java.lang.Float" access="field">
+            <column name="LONGITUDE" />
+        </property>
+        <property name="latitude" type="java.lang.Float" access="field">
+            <column name="LATITUDE" />
+        </property>
+        <property name="intervention" type="java.util.Date" access="field">
+            <column name="INTERVENTION" />
+        </property>
+        <property name="commentaire" type="java.lang.String" access="field">
+            <column name="COMMENTAIRE" />
+        </property>
+        <set name="rapports" table="RAPPORT" inverse="false" lazy="false" access="field" cascade="delete">
+            <key>
+                <column name="SERIE" />
+            </key>
+            <one-to-many class="hib.Rapport" />
+        </set>
+    </class>
+</hibernate-mapping>

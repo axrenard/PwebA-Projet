@@ -1,0 +1,34 @@
+{
+	"_serie" : "654321",
+	"_date":"12:20 17/02/2019",
+	"_statut":"en service",
+	"_etat":"ok",
+	"_temperature":17,
+	"_piece":"normal",
+	"_puce":"normal",
+	"_sanscontact":"normal"
+	"_erreurs":"mauvaise piece//lecture carte",
+	"_contenu":[
+		{
+			"_ref":"bueno",
+			"_quantite":15
+		},
+		{
+			"_ref":"country",
+			"_quantite":5
+		},
+		{
+			"_ref":"bounty",
+			"_quantite":9
+		},
+		{
+			"_ref":"kitkat",
+			"_quantite":20
+		},
+		{
+			"_ref":"mars",
+			"_quantite":7
+		}
+	],
+	"_montant": 25
+}
