@@ -1,3 +1,6 @@
+package hib;
+
+import javax.json.JsonObject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,14 +11,23 @@ import javax.servlet.http.HttpSession;
 /** import à ajouter */
 import org.json.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import javax.jws.WebService;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import com.fasterxml.jackson.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import scala.collection.Set;
+import util.HibernateUtil;
+
 import javax.ws.rs.*;;
 
 /**
@@ -39,25 +51,31 @@ public class Recepteur extends HttpServlet {
     @GET
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String rep = getMsgType(request.getServletContext().getAttribute("rapport"));
-		boolean a = true;
+		String rep = getMsgType((String)request.getServletContext().getAttribute("rapport"));
+		final Element receptionxml;
+		JSONObject receptionjson;
 		try
 		{
-			final DocumentBuilder builder = DocumentBuilderFactory.newDocumentBuilder();		
-			final Document document = builder.parse(request.getServletContext().getAttribut("rapport"));
-			final Element receptionxml = document.getDocumentElement();
+			final DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder;
+			try {
+				builder = fac.newDocumentBuilder();
+				Document document;
+				try {
+					document = builder.parse(rep);
+					receptionxml = document.getDocumentElement();
+					InsereRapport(xmltorapport(receptionxml));
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}		
 		}
 		catch (IOException e)
 		{
-			a = false;
-			JSONObject receptionjson = new JSONObject(request.getServletContext().getAttribut("rapport")); 
-		}
-		if(a)
-		{
-			InsereRapport(xmltorapport(receptionxml));
-		}
-		else
-		{
+			receptionjson = new JSONObject(request.getServletContext().getAttribute("rapport"));
 			InsereRapport(jsontorapport(receptionjson));
 		}
 		
@@ -89,34 +107,31 @@ public class Recepteur extends HttpServlet {
 	    return null;
 	}
 	
-	public static Rapport xmltorapport(Element x)
+	public static Rapport xmltorapport(javax.swing.text.html.parser.Element x)
 	{
-		Rapport r = new rapport(x.getAttribute("serie"),x.getAttribute("date"),x.getAttribute("statut"),x.getAttribute("etat"),x.getAttribute("temperature"),x.getAttribute("piece"),x.getAttribute("puce"),x.getAttribute("sanscontact"),x.getAttribute("erreurs"),x.getAttribute("contenu"),x.getAttribute("montant"));
+		Set<String>err = newHashSet<>();
+		Set<String>con = newHashSet<>();
+		err.add(x.getAttribute("erreurs"));
+		con.add(x.getAttribute("contenu"));
+		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(x.getAttribute("date"));
+		Rapport r = new Rapport(x.getAttribute("serie"),date1,x.getAttribute("statut"),x.getAttribute("etat"),Float.parseFloat(x.getAttribute("temperature")),x.getAttribute("piece"),x.getAttribute("puce"),x.getAttribute("sanscontact"),err,con,Float.parseFloat(x.getAttribute("montant")));
 		return r;
 	}
 	
-	public static Rapport jsontorapport(JsonObject j)
+	public static Rapport jsontorapport(JSONObject receptionjson)
 	{
-		Rapport r = new rapport(j.getString("serie"),j.getString("date"),j.getString("statut"),j.getString("etat"),j.getDouble("temperature"),j.getString("piece"),j.getString("puce"),j.getString("sanscontact"),j.getElementById("erreurs"),j.getElementById("contenu"),j.getDouble("montant"));
+		Set<String>err = newHashSet<>();
+		Set<String>con = newHashSet<>();
+		err.add(receptionjson.getJSONArray("erreurs").getString(0));
+		con.add(receptionjson.getJSONArray("contenu").getString(0));
+		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(receptionjson.getAttribute("date"));
+		Rapport r = new Rapport(receptionjson.getString("serie"),date1,receptionjson.getString("statut"),receptionjson.getString("etat"),receptionjson.getFloat("temperature"),receptionjson.getString("piece"),receptionjson.getString("puce"),receptionjson.getString("sanscontact"),err,con,receptionjson.getFloat("montant"));
 		return r;
 	}
 	
 	protected static void InsereRapport(Rapport r)
 	{
-		String query = "insert into rapports values (:serie, :date, :statut, :etat, :temperature, :piece, :puce, :sanscontact, :erreurs, :contenu, :montant)";
-		Query q = HibernateUtil.getSessionFactory()
-                .getCurrentSession().createQuery(query);
-		q.setParameter("serie", serie);
-		q.setParameter("date", date);
-		q.setParameter("statut", statut);
-		q.setParameter("etat", etat);
-		q.setParameter("temperature", temperature);
-		q.setParameter("piece", piece);
-		q.setParameter("puce", puce);
-		q.setParameter("sanscontact", sanscontact);
-		q.setParameter("erreurs", erreurs);
-		q.setParameter("contenu", contenu);
-		q.setParameter("montant", montant);
-		q.executeUpdate();
+		HibernateUtil.getSessionFactory()
+                .getCurrentSession().save(r);
 	}
 }
