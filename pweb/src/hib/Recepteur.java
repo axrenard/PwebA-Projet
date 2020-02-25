@@ -87,7 +87,7 @@ public class Recepteur {
 	{
 		Set<Article>cont = (Set<Article>) receptionxml.getElementsByTagName("contenu").item(0);
 		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(receptionxml.getElementsByTagName("date").item(0));
-		Rapport r = new Rapport(receptionxml.getElementsByTagName("serie").item(0).getTextContent(),date1,receptionxml.getElementsByTagName("statut").item(0).getTextContent(),receptionxml.getElementsByTagName("etat").item(0).getTextContent(),Float.parse(receptionxml.getAttribute("temperature").item(0).getTextContent()),receptionxml.getElementsByTagName("piece").item(0).getTextContent(),receptionxml.getElementsByTagName("puce").item(0).getTextContent(),receptionxml.getElementsByTagName("sanscontact").item(0).getTextContent(),receptionxml.getElementsByTagName("erreurs").item(0).getTextContent(),cont,Float.parse(receptionxml.getElementsByTagName("montant").item(0).getTextContent()));
+		Rapport r = new Rapport(receptionxml.getElementsByTagName("serie").item(0).getTextContent(),date1,receptionxml.getElementsByTagName("statut").item(0).getTextContent(),receptionxml.getElementsByTagName("etat").item(0).getTextContent(),Float.parseFloat(receptionxml.getAttribute("temperature").item(0).getTextContent()),receptionxml.getElementsByTagName("piece").item(0).getTextContent(),receptionxml.getElementsByTagName("puce").item(0).getTextContent(),receptionxml.getElementsByTagName("sanscontact").item(0).getTextContent(),receptionxml.getElementsByTagName("erreurs").item(0).getTextContent(),cont,Float.parseFloat(receptionxml.getElementsByTagName("montant").item(0).getTextContent()));
 		return r;
 	}
 	
