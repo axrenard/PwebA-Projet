@@ -109,10 +109,9 @@ public class Recepteur extends HttpServlet {
 	
 	public static Rapport xmltorapport(javax.swing.text.html.parser.Element x)
 	{
-		Set<String>err = newHashSet<>();
-		Set<String>con = newHashSet<>();
-		err.add(x.getAttribute("erreurs"));
-		con.add(x.getAttribute("contenu"));
+		ObjectMapper om = new ObjectMapper();
+		Set<String>err = om.readvalue(receptionjson.getJSONArray("erreurs").getString(0), Set<String>);
+		Set<String>con = om.readvalue(receptionjson.getJSONArray("contenu").getString(0), Set<Article>);
 		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(x.getAttribute("date"));
 		Rapport r = new Rapport(x.getAttribute("serie"),date1,x.getAttribute("statut"),x.getAttribute("etat"),Float.parseFloat(x.getAttribute("temperature")),x.getAttribute("piece"),x.getAttribute("puce"),x.getAttribute("sanscontact"),err,con,Float.parseFloat(x.getAttribute("montant")));
 		return r;
@@ -120,10 +119,9 @@ public class Recepteur extends HttpServlet {
 	
 	public static Rapport jsontorapport(JSONObject receptionjson)
 	{
-		Set<String>err = newHashSet<>();
-		Set<String>con = newHashSet<>();
-		err.add(receptionjson.getJSONArray("erreurs").getString(0));
-		con.add(receptionjson.getJSONArray("contenu").getString(0));
+		ObjectMapper om = new ObjectMapper();
+		Set<String>err = om.readvalue(receptionjson.getJSONArray("erreurs").getString(0), Set<String>);
+		Set<String>con = om.readvalue(receptionjson.getJSONArray("contenu").getString(0), Set<Article>);
 		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(receptionjson.getAttribute("date"));
 		Rapport r = new Rapport(receptionjson.getString("serie"),date1,receptionjson.getString("statut"),receptionjson.getString("etat"),receptionjson.getFloat("temperature"),receptionjson.getString("piece"),receptionjson.getString("puce"),receptionjson.getString("sanscontact"),err,con,receptionjson.getFloat("montant"));
 		return r;
