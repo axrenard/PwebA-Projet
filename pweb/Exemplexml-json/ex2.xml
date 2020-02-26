@@ -1,0 +1,34 @@
+<rapport>
+	<serie>456789</serie>
+	<date>12:50 17/02/2020</date>
+	<statut>hors service</statut>
+		<etat>erreur</etat>
+		<temperature>-15</temperature>
+			<piece>vide</piece>
+			<puce>erreur</puce>
+			<sanscontact>erreur</sanscontact>
+		<erreurs>blocage machine</erreurs>
+	<contenu> 
+		<article>
+			<ref>the vert</ref>
+			<quantite>12</quantite>
+		</article>
+		<article>
+			<ref>the noir</ref>
+			<quantite>5</quantite>
+		</article>
+		<article>
+			<ref>café</ref>
+			<quantite>7</quantite>
+		</article>
+		<article>
+			<ref>chocolat</ref>
+			<quantite>11</quantite>
+		</article>
+		<article>
+			<ref>café au lait</ref>
+			<quantite>3</quantite>
+		</article>
+	</contenu>
+	<montant>149</montant>
+</rapport>

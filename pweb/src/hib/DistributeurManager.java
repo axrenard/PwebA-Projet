@@ -42,7 +42,7 @@ public class DistributeurManager{
     public List<Distributeur> ListAll() {
     	HibernateUtil.getSessionFactory()
         .getCurrentSession().beginTransaction();
-        List<Distributeur>dst= DistributeurManagerServlet.listEvents();
+        List<Distributeur>dst= EnvoiQuery.listEvents();
         HibernateUtil.getSessionFactory()
         .getCurrentSession().getTransaction().commit();
         return dst;
@@ -70,7 +70,7 @@ public class DistributeurManager{
     	com = URLDecoder.decode(com, "UTF-8");
     	HibernateUtil.getSessionFactory()
         .getCurrentSession().beginTransaction();
-        DistributeurManagerServlet.createAndStoreDistributeur(serie,type,adr,emp,lon,lat,inte,com);
+        EnvoiQuery.createAndStoreDistributeur(serie,type,adr,emp,lon,lat,inte,com);
         HibernateUtil.getSessionFactory()
         .getCurrentSession().getTransaction().commit();
         return Response.status(Response.Status.OK).build();
@@ -95,7 +95,7 @@ public class DistributeurManager{
     	com = URLDecoder.decode(com, "UTF-8");
     	HibernateUtil.getSessionFactory()
         .getCurrentSession().beginTransaction();
-        DistributeurManagerServlet.ModifyDistributeur(serie,adr,emp,lon,lat,inte,com);
+        EnvoiQuery.ModifyDistributeur(serie,adr,emp,lon,lat,inte,com);
         HibernateUtil.getSessionFactory()
         .getCurrentSession().getTransaction().commit();
         return Response.status(Response.Status.OK).build();
@@ -107,7 +107,7 @@ public class DistributeurManager{
     	
     	HibernateUtil.getSessionFactory()
         .getCurrentSession().beginTransaction();
-        DistributeurManagerServlet.DeleteDistributeur(serie);
+        EnvoiQuery.DeleteDistributeur(serie);
         HibernateUtil.getSessionFactory()
         .getCurrentSession().getTransaction().commit();
         return Response.status(Response.Status.OK).build();
